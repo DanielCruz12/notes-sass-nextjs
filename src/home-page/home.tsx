@@ -1,9 +1,13 @@
 import { PrismaClient } from "@prisma/client";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 const prisma = new PrismaClient();
 
 export default async function HomePage() {
+  const { isAuthenticated } = getKindeServerSession();
   const users = await prisma.user.findMany();
+
   return (
     <div>
       <section className="w-full h-screen py-12 md:py-24 lg:py-32 xl:py-48 bg-black">
@@ -19,13 +23,25 @@ export default async function HomePage() {
                   designed for modern life.
                 </p>
               </div>
-              <Button
-                variant="outline"
-                className="max-w-sm mx-auto"
-                type="submit"
-              >
-                Join Now
-              </Button>
+              {!(await isAuthenticated()) ? (
+                <Button
+                  variant="outline"
+                  className="max-w-sm mx-auto"
+                  type="submit"
+                >
+                  Join Now
+                </Button>
+              ) : (
+                <Link href="/dashboard">
+                  <Button
+                    variant="outline"
+                    className="max-w-sm mx-auto"
+                    type="submit"
+                  >
+                    Go to Dashboard
+                  </Button>
+                </Link>
+              )}
             </div>
           </div>
         </div>

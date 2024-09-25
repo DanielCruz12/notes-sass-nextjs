@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-     "build": "npx prisma generate && next build",
+    "build": "npx prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
@@ -12,6 +12,7 @@
     "prettier": "prettier --write */**/*.{js,jsx,json,ts,tsx,scss,css,md}"
   },
   "dependencies": {
+    "@kinde-oss/kinde-auth-nextjs": "^2.3.8",
     "@prisma/client": "^5.19.1",
     "@radix-ui/react-alert-dialog": "^1.1.1",
     "@radix-ui/react-dialog": "^1.1.1",
@@ -27,6 +28,7 @@
     "axios": "^1.7.6",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "cmdk": "1.0.0",
     "embla-carousel-autoplay": "^8.2.0",
     "embla-carousel-react": "^8.2.0",
     "lucide-react": "^0.406.0",

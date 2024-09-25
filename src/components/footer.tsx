@@ -10,7 +10,7 @@ import { AvatarIcon } from "@radix-ui/react-icons";
 
 export const FooterV0 = () => {
   return (
-    <footer className="bg-muted text-muted-foreground py-6 md:p-10 w-full bottom-0">
+    <footer className="bg-neutral-950 text-muted-foreground py-6 md:p-10 w-full bottom-0">
       <div className="container max-w-7xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
         <div className="grid gap-4">
           <h3 className="text-lg font-semibold">Contacto</h3>
@@ -34,7 +34,7 @@ export const FooterV0 = () => {
         <div className="grid gap-4">
           <h3 className="text-lg font-semibold">Sobre Nosotros</h3>
           <div className="grid  ">
-            <p className="text-[#494949] text-[0.8rem] md:text-[0.9rem]">
+            <p className="text-[0.8rem] md:text-[0.9rem]">
               Somos una organización deportiva que promueve, fomenta, organiza y
               desarrolla el deporte del patinaje.
             </p>
