@@ -9,10 +9,10 @@ import {
   SheetDescription,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import {
   LoginLink,
   LogoutLink,
-  RegisterLink,
 } from "@kinde-oss/kinde-auth-nextjs/components";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
@@ -40,34 +40,65 @@ export default async function NavbarV0() {
             >
               <img
                 src="/logo.png"
-                title="Logo de Federación de Patinaje de El Salvador"
+                title="Logo notes-dandevcompany"
                 className="h-16 min-w-16 min-h-16"
-                alt="Logo sass-notes-dandevcompany"
+                alt="Logo notes-dandevcompany"
               />
-              <span className="sr-only">Logo sass-notes-dandevcompany</span>
+              <span className="sr-only">Logo notes-dandevcompany</span>
             </Link>
           </div>
           <div className="flex-grow flex flex-col">
-            <Link
-              href="/"
-              className="flex justify-start lg:hidden hover:bg-neutral-700"
-              prefetch={false}
-            >
-              Home
-            </Link>
-            <Link
-              href="/"
-              className="flex justify-start py-2 lg:hidden hover:bg-neutral-700"
-              prefetch={false}
-            >
-              Billing
-            </Link>
-
-            <LogoutLink className="text-sm text-accent-foreground hover:underline">
-              <Button variant="secondary" size="sm">
-                Log out
-              </Button>
-            </LogoutLink>
+            {!(await isAuthenticated()) ? (
+              <div className="gap-3">
+                <Alert className="w-full bg-zinc-800 mb-3">
+                  <AlertTitle>Heads up!</AlertTitle>
+                  <AlertDescription className="text-sm w-full">
+                    Join us to access all features!
+                  </AlertDescription>
+                </Alert>
+                <LoginLink className="items-start text-base font-semibold pr-3 my-2">
+                  <Button variant="outline" size="sm">
+                    Login
+                  </Button>
+                </LoginLink>
+              </div>
+            ) : (
+              <>
+                <Link
+                  href="/"
+                  className="flex justify-start lg:hidden hover:bg-neutral-700 py-2"
+                  prefetch={false}
+                >
+                  Home
+                </Link>
+                <Link
+                  href="/dashboard"
+                  className="flex justify-start py-2 lg:hidden hover:bg-neutral-700"
+                  prefetch={false}
+                >
+                  Dashboard
+                </Link>
+                <Link
+                  href="/billing"
+                  className="flex justify-start py-2 lg:hidden hover:bg-neutral-700"
+                  prefetch={false}
+                >
+                  Billing
+                </Link>
+                <Link
+                  href="/settings"
+                  className="flex justify-start py-2 lg:hidden hover:bg-neutral-700"
+                  prefetch={false}
+                >
+                  Settings
+                </Link>
+                <LogoutLink className="text-sm text-accent-foreground hover:underline">
+                  <Button variant="secondary" size="sm">
+                    Log out
+                  </Button>
+                </LogoutLink>
+              </>
+            )}
 
             {(await isAuthenticated()) && (
               <div className="mt-auto p-1 bg-neutral-900 rounded-lg shadow-md">
@@ -102,29 +133,41 @@ export default async function NavbarV0() {
       <Link href="/" className="mr-2 hidden lg:flex" prefetch={false}>
         <img
           src="/logo.png"
-          title="Logo de Federación de Patinaje de El Salvador"
+          title="Logo notes-dandevcompany"
           className="h-12 min-w-h-12 min-h-12"
-          alt="Logo sass-notes-dandevcompany"
+          alt="Logo notes-dandevcompany"
         />
-        <span className="sr-only">Logo sass-notes-dandevcompany</span>
+        <span className="sr-only">Logo notes-dandevcompany</span>
       </Link>
 
-      {/* Nuevas opciones de navegación para dispositivos grandes */}
       <nav className="hidden lg:flex items-center space-x-4 ml-6">
-        <Link
-          href="/"
-          className="text-sm font-medium hover:bg-neutral-700 p-2 rounded-lg px-4"
-        >
-          Home
-        </Link>
-        <Link
-          href="/billing"
-          className="text-sm font-medium hover:bg-neutral-700 p-2 rounded-lg px-4"
-        >
-          Billing
-        </Link>
+        {!(await isAuthenticated()) ? (
+          <></>
+        ) : (
+          <>
+            <Link
+              href="/dashboard"
+              className="text-sm font-medium hover:bg-neutral-700 p-2 rounded-lg"
+            >
+              Dashboard
+            </Link>
+            <Link
+              href="/billing"
+              className="text-sm font-medium hover:bg-neutral-700 p-2 rounded-lg px-4"
+              prefetch={false}
+            >
+              Billing
+            </Link>
+            <Link
+              href="/settings"
+              className="text-sm font-medium hover:bg-neutral-700 p-2 rounded-lg"
+              prefetch={false}
+            >
+              Settings
+            </Link>
+          </>
+        )}
       </nav>
-
       <div className="ml-auto hidden md:flex gap-4">
         {!(await isAuthenticated()) ? (
           <>
@@ -133,11 +176,6 @@ export default async function NavbarV0() {
                 Login
               </Button>
             </LoginLink>
-            <RegisterLink className="items-center py-2 text-lg font-semibold">
-              <Button variant="outline" size="lg">
-                Sign up
-              </Button>
-            </RegisterLink>
           </>
         ) : (
           <div className="profile-blob">

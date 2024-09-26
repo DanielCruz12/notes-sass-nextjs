@@ -1,59 +1,63 @@
-import { PrismaClient } from "@prisma/client";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-const prisma = new PrismaClient();
+import { RegisterLink } from "@kinde-oss/kinde-auth-nextjs/components";
+import Script from "next/script";
 
 export default async function HomePage() {
   const { isAuthenticated } = getKindeServerSession();
-  const users = await prisma.user.findMany();
 
   return (
-    <div>
-      <section className="w-full h-screen py-12 md:py-24 lg:py-32 xl:py-48 bg-black">
-        <div className="container px-4 md:px-6">
-          <div className="grid gap-6 items-center">
-            <div className="flex flex-col justify-center space-y-4 text-center">
-              <div className="space-y-2">
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
-                  Revolutionize Your Email Experience
-                </h1>
-                <p className="max-w-[600px] text-zinc-200 md:text-xl dark:text-zinc-100 mx-auto">
-                  Join us and take control of your inbox. Fast, secure, and
-                  designed for modern life.
-                </p>
-              </div>
-              {!(await isAuthenticated()) ? (
-                <Button
-                  variant="outline"
-                  className="max-w-sm mx-auto"
-                  type="submit"
-                >
-                  Join Now
-                </Button>
-              ) : (
-                <Link href="/dashboard">
-                  <Button
-                    variant="outline"
-                    className="max-w-sm mx-auto"
-                    type="submit"
-                  >
-                    Go to Dashboard
-                  </Button>
-                </Link>
-              )}
+    <section className="w-full h-[calc(100vh-100px)] flex items-center justify-center">
+      <div className="container px-4 md:px-6">
+        <div className="flex flex-col items-center justify-center">
+          <div className="flex flex-col justify-center space-y-4 text-center">
+            <div className="space-y-2">
+              <span
+                id="colorChangingBadge"
+                className="px-2 py-1 text-xs font-semibold rounded-full transition-colors duration-[3000ms] ease-in-out"
+              >
+                DanDevNotes Beta
+              </span>
+              <h1 className="font-bold pb-1 text-2xl md:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
+                Elevate Your Note-Taking with AI-Powered Insights
+              </h1>
+              <p className="w-full max-w-5xl text-zinc-200 text-sm md:text-xl mx-auto pb-2">
+                Where your ideas meet artificial intelligence. Capture,
+                organize, and enhance your thoughts with smart, AI-assisted
+                note-taking with dandevnotes.
+              </p>
             </div>
+            {!(await isAuthenticated()) ? (
+              <RegisterLink className="items-center text-base font-semibold">
+                <Button variant="secondary" size="default">
+                  Sign up
+                </Button>
+              </RegisterLink>
+            ) : (
+              <Link href="/dashboard" className="mx-auto">
+                <Button variant="outline" className="max-w-sm" type="submit">
+                  Go to Dashboard
+                </Button>
+              </Link>
+            )}
           </div>
         </div>
-      </section>
-      <h1>All Users</h1>
-      <ul>
-        {users.map((user: any) => (
-          <li key={user.id}>
-            {user.name} - {user.email}
-          </li>
-        ))}
-      </ul>
-    </div>
+      </div>
+      <Script id="badge-animation">
+        {`
+          function getRandomColor() {
+            return '#' + Math.floor(Math.random()*16777215).toString(16);
+          }
+
+          function changeColor() {
+            const badge = document.getElementById('colorChangingBadge');
+            badge.style.backgroundColor = getRandomColor();
+          }
+
+          setInterval(changeColor, 2000); // Change color every 2 seconds
+        `}
+      </Script>
+    </section>
   );
 }
