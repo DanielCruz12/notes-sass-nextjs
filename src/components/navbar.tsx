@@ -50,11 +50,25 @@ export default async function NavbarV0() {
           <div className="flex-grow flex flex-col">
             <Link
               href="/"
-              className="flex justify-start lg:hidden"
+              className="flex justify-start lg:hidden hover:bg-neutral-700"
               prefetch={false}
             >
               Home
             </Link>
+            <Link
+              href="/"
+              className="flex justify-start py-2 lg:hidden hover:bg-neutral-700"
+              prefetch={false}
+            >
+              Billing
+            </Link>
+
+            <LogoutLink className="text-sm text-accent-foreground hover:underline">
+              <Button variant="secondary" size="sm">
+                Log out
+              </Button>
+            </LogoutLink>
+
             {(await isAuthenticated()) && (
               <div className="mt-auto p-1 bg-neutral-900 rounded-lg shadow-md">
                 <div className="flex items-center space-x-2">
@@ -78,9 +92,6 @@ export default async function NavbarV0() {
                     <p className="text-xs text-muted-foreground text-wrap">
                       {user?.email}
                     </p>
-                    <LogoutLink className="text-sm text-accent-foreground py-2 hover:underline inline-block">
-                      Log out
-                    </LogoutLink>
                   </div>
                 </div>
               </div>
@@ -88,7 +99,7 @@ export default async function NavbarV0() {
           </div>
         </SheetContent>
       </Sheet>
-      <Link href="/" className="mr-2 hidden mt-2 lg:flex" prefetch={false}>
+      <Link href="/" className="mr-2 hidden lg:flex" prefetch={false}>
         <img
           src="/logo.png"
           title="Logo de Federación de Patinaje de El Salvador"
@@ -97,6 +108,22 @@ export default async function NavbarV0() {
         />
         <span className="sr-only">Logo sass-notes-dandevcompany</span>
       </Link>
+
+      {/* Nuevas opciones de navegación para dispositivos grandes */}
+      <nav className="hidden lg:flex items-center space-x-4 ml-6">
+        <Link
+          href="/"
+          className="text-sm font-medium hover:bg-neutral-700 p-2 rounded-lg px-4"
+        >
+          Home
+        </Link>
+        <Link
+          href="/billing"
+          className="text-sm font-medium hover:bg-neutral-700 p-2 rounded-lg px-4"
+        >
+          Billing
+        </Link>
+      </nav>
 
       <div className="ml-auto hidden md:flex gap-4">
         {!(await isAuthenticated()) ? (

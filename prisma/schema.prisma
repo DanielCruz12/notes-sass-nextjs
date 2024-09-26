@@ -9,7 +9,7 @@ datasource db {
 }
 
 model User {
-  id    String  @id @unique
+  id    String  @id @unique @default(uuid())
   name  String?
   email String  @unique @default("defaultemail@gmail.com")
   age   Int     @default(0) @db.SmallInt
