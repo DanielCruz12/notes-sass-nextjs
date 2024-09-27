@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { RegisterLink } from "@kinde-oss/kinde-auth-nextjs/components";
-import Script from "next/script";
 
 export default async function HomePage() {
   const { isAuthenticated } = getKindeServerSession();
@@ -44,20 +43,6 @@ export default async function HomePage() {
           </div>
         </div>
       </div>
-      <Script id="badge-animation">
-        {`
-          function getRandomColor() {
-            return '#' + Math.floor(Math.random()*16777215).toString(16);
-          }
-
-          function changeColor() {
-            const badge = document.getElementById('colorChangingBadge');
-            badge.style.backgroundColor = getRandomColor();
-          }
-
-          setInterval(changeColor, 2000); // Change color every 2 seconds
-        `}
-      </Script>
     </section>
   );
 }

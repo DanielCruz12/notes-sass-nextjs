@@ -12,12 +12,17 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { createNote } from "@/app/actions/noteActions";
+import { chatSession } from "@/utils/aiModel";
 
 export default function FormNote() {
   const [isLoading, setIsLoading] = useState(false);
+  // eslint-disable-next-line no-unused-vars
+  const [generatedContent, setGeneratedContent] = useState("");
+
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
 
@@ -35,7 +40,14 @@ export default function FormNote() {
   const generateWithAI = async () => {
     setIsLoading(true);
     try {
-      console.log("Generated with AI");
+      const titleElement = document.getElementById("title") as HTMLInputElement;
+      const title = titleElement?.value || "";
+      const result = await chatSession.sendMessage(
+        `Generate a note based on the title: "${title}"`
+      );
+      const content = result.response.text();
+      setGeneratedContent(content);
+      setValue("content", content);
     } catch (error) {
       console.error("Error generating with AI:", error);
     } finally {
@@ -45,13 +57,6 @@ export default function FormNote() {
 
   return (
     <div className="w-full mx-auto mt-8 relative">
-      {/*  <Button
-        className="absolute top-0 right-0 p-2"
-        variant="ghost"
-        size="icon"
-      >
-        <X className="h-4 w-4" />
-      </Button> */}
       <h2 className="text-2xl font-bold mb-4">Create a New Note</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>
@@ -83,7 +88,7 @@ export default function FormNote() {
           </label>
           <Textarea
             id="content"
-            {...register("content", { required: "Content is required" })}
+            {...register("content")}
             rows={4}
             placeholder="Enter note content"
             className="mt-1 block w-full pr-10"
@@ -107,11 +112,6 @@ export default function FormNote() {
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
-          {errors.content && (
-            <p className="text-red-500 text-xs mt-1">
-              {errors.content.message?.toString()}
-            </p>
-          )}
         </div>
         <div>
           <Button

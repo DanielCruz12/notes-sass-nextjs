@@ -12,6 +12,7 @@
     "prettier": "prettier --write */**/*.{js,jsx,json,ts,tsx,scss,css,md}"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.15.0",
     "@kinde-oss/kinde-auth-nextjs": "^2.3.8",
     "@prisma/client": "^5.20.0",
     "@radix-ui/react-alert-dialog": "^1.1.1",
@@ -27,6 +28,7 @@
     "@radix-ui/react-tabs": "^1.1.0",
     "@radix-ui/react-tooltip": "^1.1.2",
     "@tanstack/react-table": "^8.20.5",
+    "@types/quill": "^2.0.14",
     "axios": "^1.7.6",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
@@ -41,7 +43,6 @@
     "prisma": "^5.20.0",
     "react": "^18",
     "react-dom": "^18",
-    "react-google-recaptcha": "^3.1.0",
     "react-hook-form": "^7.53.0",
     "react-spinners": "^0.14.1",
     "tailwind-merge": "^2.5.2",

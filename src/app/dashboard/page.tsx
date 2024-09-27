@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import React from "react";
 import {
   Card,
@@ -7,6 +6,7 @@ import {
   CardContent,
   CardFooter,
 } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import FormNote from "./note/form/page";
 import {
   Dialog,
@@ -21,6 +21,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { getNotes } from "@/app/actions/noteActions";
 import { redirect } from "next/navigation";
+import { PlusIcon } from "@radix-ui/react-icons";
 
 export default async function Dashboard() {
   const { getUser } = getKindeServerSession();
@@ -39,7 +40,10 @@ export default async function Dashboard() {
           <DialogTitle></DialogTitle>
           <DialogDescription></DialogDescription>
           <DialogTrigger asChild>
-            <Button variant={"secondary"}>Add note</Button>
+            <Button variant={"secondary"}>
+              <PlusIcon className="w-4 h-4 mr-2" />
+              Create note
+            </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[625px]">
             <FormNote />
@@ -60,7 +64,7 @@ export default async function Dashboard() {
                 <CardContent>
                   <p className="line-clamp-3 pt-5">
                     {note.description.length > 100
-                      ? `${note.description.substring(0, 100)}...`
+                      ? `${note.description.substring(0, 150)}...`
                       : note.description}
                   </p>
                 </CardContent>
