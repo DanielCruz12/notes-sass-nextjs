@@ -1,92 +1,64 @@
+"use client";
 import Link from "next/link";
+import { useState } from "react";
 import {
-  FacebookIcon,
-  InstagramIcon,
-  MapPinIcon,
-  PhoneIcon,
-  TwitterIcon,
-} from "./icons/icons";
-import { AvatarIcon } from "@radix-ui/react-icons";
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import LightningWidget from "@/app/donation/page";
 
-export const FooterV0 = () => {
+const Footer = () => {
+  const [open, setOpen] = useState(false);
   return (
-    <footer className="bg-neutral-950 text-muted-foreground py-6 md:p-10 w-full bottom-0">
-      <div className="container max-w-7xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-        <div className="grid gap-4">
-          <h3 className="text-lg font-semibold">Contacto</h3>
-          <div className="grid gap-2 text-sm">
-            <div className="flex items-center gap-2">
-              <PhoneIcon className="h-5 w-5" />
-              <span>+(503) 2237-0822</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <AvatarIcon className="h-5 w-5" />
-              <span>@fesapsv</span>
-            </div>
-            <div className="">
-              <Link className="flex items-center gap-2" href={"/direccion"}>
-                <MapPinIcon className="h-5 w-5" />
-                <span>San Salvador, 1a calle poniente</span>
-              </Link>
-            </div>
-          </div>
-        </div>
-        <div className="grid gap-4">
-          <h3 className="text-lg font-semibold">Sobre Nosotros</h3>
-          <div className="grid  ">
-            <p className="text-[0.8rem] md:text-[0.9rem]">
-              Somos una organización deportiva que promueve, fomenta, organiza y
-              desarrolla el deporte del patinaje.
-            </p>
-          </div>
-        </div>
-        <div className="grid gap-4">
-          <h3 className="text-lg font-semibold">Enlaces Útiles</h3>
-          <div className="grid gap-2 text-sm">
-            <Link href="/" prefetch={false}>
-              Inicio
+    <footer className="bg-[#141419] rounded-l shadow mt-8">
+      <div className="mx-auto w-full max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
+        <span className="text-sm text-gray-500 dark:text-gray-400 sm:text-center">
+          © 2024{" "}
+          <a href="#" className="hover:underline">
+            DanDev™
+          </a>
+          . All Rights Reserved.
+        </span>
+        <ul className="mt-3 flex flex-wrap items-center text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
+          {/* <li>
+              <a href='#' className='me-4 hover:underline md:me-6'>
+                About me
+              </a>
+            </li> */}
+          <li>
+            <Link href="/privacy" className="me-4 hover:underline md:me-6">
+              Privacy Policy
             </Link>
-            <Link href="/" prefetch={false}>
-              Servicios
+          </li>
+          <li>
+            <Link href="/terms" className="me-4 hover:underline md:me-6">
+              Licensing
             </Link>
-            <Link href="/" prefetch={false}>
-              Portafolio
-            </Link>
-          </div>
-        </div>
-        <div className="grid gap-4">
-          <h3 className="text-lg font-semibold">Síguenos</h3>
-          <div className="grid gap-2 text-sm">
-            <Link
-              href="https://www.facebook.com/fesapsv"
-              className="flex items-center gap-2"
-              target="_blank"
-              prefetch={false}
-            >
-              <FacebookIcon className="h-5 w-5" />
-              Facebook
-            </Link>
-            <Link
-              href="https://x.com/indeselsalvador/status/1809617334987804799"
-              className="flex items-center gap-2"
-              target="_blank"
-              prefetch={false}
-            >
-              <TwitterIcon className="h-5 w-5" />
-              Twitter
-            </Link>
-            <Link
-              href="https://www.instagram.com/fesapsv"
-              className="flex items-center gap-2"
-              target="_blank"
-              prefetch={false}
-            >
-              <InstagramIcon className="h-5 w-5" />
-              Instagram
-            </Link>
-          </div>
+          </li>
+        </ul>
+        <div className="px-5 pb-3">
+          <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger asChild>
+              <button className="text-white bg-gray-600 rounded-xl px-3 py-2 hover:bg-gray-700">
+                Donate
+              </button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle></DialogTitle>
+                <DialogDescription></DialogDescription>
+              </DialogHeader>
+              <LightningWidget />
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
     </footer>
   );
 };
+
+export default Footer;

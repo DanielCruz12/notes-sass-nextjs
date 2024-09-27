@@ -4,8 +4,8 @@ import { getNoteById, deleteNote } from "@/app/actions/noteActions";
 import { Button } from "@/components/ui/button";
 import { redirect } from "next/navigation";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import Link from "next/link";
-import { Pencil1Icon, TrashIcon } from "@radix-ui/react-icons";
+import { TrashIcon, Pencil1Icon } from "@radix-ui/react-icons";
+import EditNoteModal from "./EditNoteModal";
 
 const NoteInformation = async ({ params }: { params: { id: string } }) => {
   const { getUser } = getKindeServerSession();
@@ -36,12 +36,12 @@ const NoteInformation = async ({ params }: { params: { id: string } }) => {
         <CardHeader className="flex flex-row justify-between items-center">
           <CardTitle className="text-2xl font-bold">{note.title}</CardTitle>
           <div className="space-x-2">
-            <Link href={`/dashboard/note/${params.id}/edit`}>
+            <EditNoteModal note={note} user={user}>
               <Button variant="outline">
                 <Pencil1Icon className="w-4 h-4 mr-2" />
                 Edit
               </Button>
-            </Link>
+            </EditNoteModal>
             <form action={handleDelete} className="inline">
               <Button type="submit" variant="destructive">
                 <TrashIcon className="w-4 h-4 mr-2" />

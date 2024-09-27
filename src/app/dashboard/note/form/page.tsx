@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useForm } from "react-hook-form";
-import { Cpu } from "lucide-react";
+import { MagicWandIcon } from "@radix-ui/react-icons";
+
 import {
   Tooltip,
   TooltipContent,
@@ -30,6 +31,7 @@ export default function FormNote() {
     setIsLoading(true);
     try {
       await createNote(data);
+      window.location.reload();
     } catch (error) {
       console.error("Error creating note:", error);
     } finally {
@@ -89,7 +91,7 @@ export default function FormNote() {
           <Textarea
             id="content"
             {...register("content")}
-            rows={4}
+            rows={5}
             placeholder="Enter note content"
             className="mt-1 block w-full pr-10"
           />
@@ -104,7 +106,7 @@ export default function FormNote() {
                   variant="ghost"
                   disabled={isLoading}
                 >
-                  <Cpu className="h-4 w-4" />
+                  <MagicWandIcon className="mr-2 h-4 w-4 text-emerald-500" />
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
